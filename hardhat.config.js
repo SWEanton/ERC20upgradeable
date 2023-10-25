@@ -1,10 +1,11 @@
-require("@nomicfoundation/hardhat-ethers");
+require("@nomiclabs/hardhat-ethers");
 require("@openzeppelin/hardhat-upgrades");
-require("@nomicfoundation/hardhat-etherscan");
+require("@nomiclabs/hardhat-etherscan");
 require("dotenv").config();
 
-module.exports = {
+const { POLYGON_HTTPS, PRIVATE_KEY, ETHERSCAN_API_KEY } = process.env;
 
+module.exports = {
   solidity: {
     compilers: [
       {
@@ -18,17 +19,13 @@ module.exports = {
       },
     ],
   },
-    
   networks: {
     mumbai: {
-      url: `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
-      accounts: [`0x${PRIVATE_KEY}`],
-
-
-    }
+      url: POLYGON_HTTPS,
+      accounts: [PRIVATE_KEY],
+    },
   },
-  
   etherscan: {
-    apiKey: process.env.ETHERSCAN_KEY
-  }
+    apiKey: ETHERSCAN_API_KEY,
+  },
 };
